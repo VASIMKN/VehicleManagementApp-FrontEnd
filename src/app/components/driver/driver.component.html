@@ -1,1 +1,175 @@
-<p>driver works!</p>
+<h3>{{errMsg}}</h3>
+
+<div class="container-fluid">
+
+    <div class="alert alert-primary">
+        <h3>Driver Form</h3>
+    </div><br>
+
+    <form class="form-group w-25" [formGroup]="driverForm" (ngSubmit)="saveDriver()">
+        <!-- <div class="form-group">
+            <label for="driverId">Driver Id</label>
+            <input class="form-control" type="number" name="driverId" id="driverId" formControlName="driverId" placeholder="Ex: 1">
+            <span *ngIf="driverForm.controls.driverId.errors?.required && driverForm.controls.driverId.touched" class="alert alert-danger">
+                Driver Id is required
+            </span>
+        </div> 
+        <br>-->
+
+        <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input class="form-control" type="text" name="firstName" id="firstName" formControlName="firstName" placeholder="Ex: John">
+            <span *ngIf="driverForm.controls.firstName.errors?.required && driverForm.controls.firstName.touched" class="alert alert-danger">
+                First Name is required
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input class="form-control" type="text" name="lastName" id="lastName" formControlName="lastName" placeholder="Ex: Smith">
+            <span *ngIf="driverForm.controls.lastName.errors?.required && driverForm.controls.lastName.touched" class="alert alert-danger">
+                Last Name required
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="contactNumber">Contact Number</label>
+            <input class="form-control" type="tel" name="contactNumber" id="contactNumber" formControlName="contactNumber" pattern="^\+?([0-9]{2})\)?[ ]([0-9]{5})[ ]([0-9]{5})$" placeholder="Ex: +91 XXXXX XXXXX">
+            <span *ngIf="driverForm.controls.contactNumber.errors?.required && driverForm.controls.contactNumber.touched" class="alert alert-danger">
+                Contact Number required
+            </span>
+            <span *ngIf="driverForm.controls.contactNumber.errors?.pattern && driverForm.controls.contactNumber.touched" class="alert alert-danger">
+                InValid Format
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control" type="text" name="email" id="email" formControlName="email" pattern="[a-zA-Z0-9]+[@][a-zA-Z]+[.][a-zA-Z]+" placeholder="Ex: johnsmith@cg.com">
+            <span *ngIf="driverForm.controls.email.errors?.required && driverForm.controls.email.touched" class="alert alert-danger">
+                Email required
+            </span>
+            <span *ngIf="driverForm.controls.email.errors?.pattern && driverForm.controls.email.touched" class="alert alert-danger">
+                InCorrect Format
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea class="form-control" type="text" name="address" id="address" formControlName="address" placeholder="Ex: ABC Road, XYZ"></textarea>
+            <span *ngIf="driverForm.controls.address.errors?.required && driverForm.controls.address.touched" class="alert alert-danger">
+                Address Required
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="chargesPerDay">Charges Per Day</label>
+            <input class="form-control" type="number" name="chargesPerDay" id="chargesPerDay" formControlName="chargesPerDay" placeholder="Ex: XXX">
+            <span *ngIf="driverForm.controls.chargesPerDay.errors?.required && driverForm.controls.chargesPerDay.touched" class="alert alert-danger">
+                chargesPerDay required
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="licenseNo">License Number</label>
+            <input class="form-control" type="text" name="licenseNo" id="licenseNo" formControlName="licenseNo" placeholder="Ex: John12345">
+            <span *ngIf="driverForm.controls.licenseNo.errors && driverForm.controls.licenseNo.touched" class="alert alert-danger">
+                licenseNo required
+            </span>
+        </div>
+        <br>
+
+        <input type="submit" value="Add Driver" class="btn btn-primary" [disabled]="driverForm.invalid">
+
+        <input style="margin:20px;" type="reset" onclick="alert(' Sure!! You want to Clear')" value="Clear" class="btn btn-primary" />
+
+    </form>
+    <br>
+
+    <form class="form-group w-25" [formGroup]="driverSearchForm" (ngSubmit)="findDriverById()">
+        <div class="form-group">
+            Enter Driver Id to view details: <br>
+            <input class="form-control" type="number" name="searchId" id="searchId" formControlName="searchId" placeholder="Ex: 1" />
+            <span *ngIf="driverSearchForm.controls.searchId.errors?.required && driverSearchForm.controls.searchId.touched" class="alert alert-danger">
+            Driver Id is required
+            </span>
+        </div>
+        <br>
+        <input type="submit" value="Search" class="btn btn-primary" [disabled]="driverSearchForm.invalid" />
+
+    </form>
+
+
+    <table class="table table-bordered" *ngIf="driver">
+        <tr>
+            <th>Driver ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Contact Number</th>
+            <th>Email Id</th>
+            <th>Address</th>
+            <th>Charges Per Day</th>
+            <th>License No</th>
+            <th>Functionalities</th>
+        </tr>
+        <tr>
+            <td>{{driver.driverId}}</td>
+            <td>{{driver.firstName}}</td>
+            <td>{{driver.lastName}}</td>
+            <td>{{driver.contactNumber}}</td>
+            <td>{{driver.email}}</td>
+            <td>{{driver.address}}</td>
+            <td>{{driver.chargesPerDay}}</td>
+            <td>{{driver.licenseNo}}</td>
+            <td>
+                <button class="btn btn-primary py-1 px-2" (click)="updateDriver(driver.driverId)">Update</button>
+            </td>
+        </tr>
+    </table>
+
+
+
+
+
+    <form (ngSubmit)="findDriver()">
+        <br> Click Here to get All Drivers Details: <br><br>
+        <input type="submit" value="Click Here" class="btn btn-primary" />
+    </form>
+
+
+
+    <table class="table table-bordered">
+        <tr *ngIf="drivers.length > 0">
+            <th>Driver ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Contact Number</th>
+            <th>Email Id</th>
+            <th>Address</th>
+            <th>Charges Per Day</th>
+            <th>License No</th>
+            <th>Functionalities</th>
+        </tr>
+        <tr *ngFor="let dr of drivers">
+            <td>{{dr.driverId}}</td>
+            <td>{{dr.firstName}}</td>
+            <td>{{dr.lastName}}</td>
+            <td>{{dr.contactNumber}}</td>
+            <td>{{dr.email}}</td>
+            <td>{{dr.address}}</td>
+            <td>{{dr.chargesPerDay}}</td>
+            <td>{{dr.licenseNo}}</td>
+            <td>
+                <button (click)="updateDriver(dr.driverId)">Update</button>
+            </td>
+        </tr>
+    </table>
+
+
+</div>

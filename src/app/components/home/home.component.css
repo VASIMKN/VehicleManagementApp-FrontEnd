@@ -1,0 +1,29 @@
+.hero-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/assets/images/aaa.jpg");
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.hero-text {
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    color: white;
+}
+
+.hero-text button:hover {
+    background-color: rgb(226, 21, 21);
+    color: white;
+}
+
+#img1 {
+    float: right;
+}
+
+h1,
+p {
+    text-align: center;
+}

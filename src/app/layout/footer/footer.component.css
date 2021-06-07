@@ -1,0 +1,11 @@
+.logo-font {
+    text-decoration: none;
+}
+
+span a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+}

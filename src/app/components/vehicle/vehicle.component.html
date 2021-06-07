@@ -1,1 +1,254 @@
-<p>vehicle works!</p>
+<h3>{{errMsg}}</h3>
+
+<div class="container-fluid">
+
+    <div class="alert alert-primary">
+        <h3>Vehicle Form</h3>
+    </div><br>
+
+    <form class="form-group w-25" [formGroup]="vehicleForm" (ngSubmit)="addVehicle()">
+
+        <!-- <div class="form-group">
+            <label for="vehicleId">Vehicle Id</label>
+            <input class="form-control" type="number" name="vehicleId" id="vehicleId" formControlName="vehicleId" placeholder="Ex: 1">
+            <span *ngIf="vehicleForm.controls.vehicleId.errors?.required && vehicleForm.controls.vehicleId.touched" class="alert alert-danger">
+                Vehicle Id is required
+            </span>
+        </div>
+        <br> -->
+
+        <div class="form-group">
+            <label for="driverId">Driver Id</label>
+            <input class="form-control" type="number" name="driverId" id="driverId" formControlName="driverId" placeholder="Ex: 1">
+            <span *ngIf="vehicleForm.controls.driverId.errors?.required && vehicleForm.controls.driverId.touched" class="alert alert-danger">
+                Driver Id is required
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="vehicleNumber">Vehicle Number</label>
+            <input class="form-control" type="text" name="vehicleNumber" id="vehicleNumber" formControlName="vehicleNumber" placeholder="Ex: BOMXXX">
+            <span *ngIf="vehicleForm.controls.vehicleNumber.errors?.required && vehicleForm.controls.vehicleNumber.touched" class="alert alert-danger">
+                Vehicle Number required
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="type">Type</label>
+            <!--  <input class="form-control" type="text" name="type" id="type" formControlName="type" placeholder="Eg:Smith"> -->
+            <select type="text" name="type" id="type" class="form-control" formControlName="type">
+                <option value ='' selected>--Select Type--</option>
+                <option *ngFor="let t of type">
+                    {{t}}
+                </option>
+                </select>
+            <span *ngIf="vehicleForm.controls.type.errors?.required && vehicleForm.controls.type.touched" class="alert alert-danger">
+                Vehicle Type required
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="category">Category</label>
+            <!-- <input class="form-control" type="text" name="category" id="category" formControlName="category" placeholder="Eg:Smith"> -->
+            <select name="category" id="category" class="form-control" formControlName="category">
+                <option value ='' selected>--Select Category--</option>
+                <option *ngFor="let c of category">
+                    {{c}}
+                </option>
+                </select>
+            <span *ngIf="vehicleForm.controls.category.errors?.required && vehicleForm.controls.category.touched" class="alert alert-danger">
+                Vehicle Category required
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" type="text" name="description" id="description" formControlName="description" placeholder="Ex: Description of Vehicle"></textarea>
+            <span *ngIf="vehicleForm.controls.description.errors?.required && vehicleForm.controls.description.touched" class="alert alert-danger">
+                Vehicle Description required
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="location">Location</label>
+            <!--  <input class="form-control" type="text" name="location" id="location" formControlName="location" placeholder="Eg:Smith"> -->
+            <select name="location" id="location" class="form-control" formControlName="location">
+            <option value ='' selected>--Select Location--</option>
+            <option *ngFor="let l of location">
+                {{l}}
+            </option>
+            </select>
+            <span *ngIf="vehicleForm.controls.location.errors?.required && vehicleForm.controls.location.touched" class="alert alert-danger">
+                Vehicle Location required
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="capacity">Capacity</label>
+            <input class="form-control" type="number" min="2" name="capacity" id="capacity" formControlName="capacity" placeholder="Ex: 6">
+            <span *ngIf="vehicleForm.controls.capacity.errors?.required && vehicleForm.controls.capacity.touched" class="alert alert-danger">
+                Vehicle Capacity required
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="chargesPerKM">Charges Per KM</label>
+            <input class="form-control" type="number" name="chargesPerKM" id="chargesPerKM" formControlName="chargesPerKM" placeholder="Ex: XX">
+            <span *ngIf="vehicleForm.controls.chargesPerKM.errors?.required && vehicleForm.controls.chargesPerKM.touched" class="alert alert-danger">
+               Charges per KM required
+            </span>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label for="fixedCharges">Fixed Charges</label>
+            <input class="form-control" type="number" name="fixedCharges" id="fixedCharges" formControlName="fixedCharges" placeholder="Ex: XXX">
+            <span *ngIf="vehicleForm.controls.fixedCharges.errors?.required && vehicleForm.controls.fixedCharges.touched" class="alert alert-danger">
+               Fixed Charges required
+            </span>
+        </div>
+        <br>
+
+        <input type="submit" value="Add Vehicle" class="btn btn-primary py-2 px-3 search" [disabled]="vehicleForm.invalid">
+
+        <input style="margin:20px;" type="reset" onclick="alert(' Sure!! You want to Clear')" value="Clear" class="btn btn-primary" />
+
+    </form>
+
+
+    <form class="form-group w-25" [formGroup]="vehicleSearchForm" (ngSubmit)="findVehicleById()">
+        <div class="form-group">
+            Enter Vehicle Id to view details: <br>
+            <input class="form-control" type="number" name="searchId" id="searchId" formControlName="searchId" placeholder="Ex: 1" />
+            <span *ngIf="vehicleSearchForm.controls.searchId.errors?.required && vehicleSearchForm.controls.searchId.touched" class="alert alert-danger">
+        Vehicle Id is required
+        </span>
+        </div>
+        <br>
+        <input type="submit" value="Search" class="btn btn-primary" [disabled]="vehicleSearchForm.invalid" />
+
+    </form>
+
+
+    <table class="table table-bordered" *ngIf="vehicle">
+        <tr>
+            <th>Vehicle ID</th>
+            <th>Driver ID</th>
+            <th>Driver First Name</th>
+            <th>Driver Last Name</th>
+            <th>Vehicle Number</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Capacity</th>
+            <th>Charges Per Km</th>
+            <th>Fixed Charges</th>
+        </tr>
+        <tr>
+            <td>{{vehicle.vehicleId}}</td>
+            <td>{{vehicle.driver.driverId}}</td>
+            <td>{{vehicle.driver.firstName}}</td>
+            <td>{{vehicle.driver.lastName}}</td>
+            <td>{{vehicle.vehicleNumber}}</td>
+            <td>{{vehicle.type}}</td>
+            <td>{{vehicle.category}}</td>
+            <td>{{vehicle.description}}</td>
+            <td>{{vehicle.location}}</td>
+            <td>{{vehicle.capacity}}</td>
+            <td>$ {{vehicle.chargesPerKM}}</td>
+            <td>$ {{vehicle.fixedCharges}}</td>
+        </tr>
+    </table>
+
+
+    <form class="form-group w-25" [formGroup]="vehicleDriverSearchForm" (ngSubmit)="findVehicleByDriverId()">
+        <div class="form-group">
+            Enter Driver Id to view Vehicle details: <br>
+            <input class="form-control" type="number" name="searchDriverId" id="searchDriverId" formControlName="searchDriverId" placeholder="Eg: 1" />
+            <span *ngIf="vehicleDriverSearchForm.controls.searchDriverId.errors?.required && vehicleDriverSearchForm.controls.searchDriverId.touched" class="alert alert-danger">
+        Driver Id is required
+        </span>
+        </div>
+        <br>
+        <input type="submit" value="Search" class="btn btn-primary" [disabled]="vehicleDriverSearchForm.invalid" />
+
+    </form>
+
+
+    <table class="table table-bordered" *ngIf="vehicledriver">
+        <tr>
+            <th>Vehicle ID</th>
+            <th>Driver ID</th>
+            <th>Driver First Name</th>
+            <th>Driver Last Name</th>
+            <th>Vehicle Number</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Capacity</th>
+            <th>Charges Per Km</th>
+            <th>Fixed Charges</th>
+        </tr>
+        <tr *ngFor="let vd of vehicledriver">
+            <td>{{vd.vehicleId}}</td>
+            <td>{{vd.driver.driverId}}</td>
+            <td>{{vd.driver.firstName}}</td>
+            <td>{{vd.driver.lastName}}</td>
+            <td>{{vd.vehicleNumber}}</td>
+            <td>{{vd.type}}</td>
+            <td>{{vd.category}}</td>
+            <td>{{vd.description}}</td>
+            <td>{{vd.location}}</td>
+            <td>{{vd.capacity}}</td>
+            <td>$ {{vd.chargesPerKM}}</td>
+            <td>$ {{vd.fixedCharges}}</td>
+        </tr>
+    </table>
+
+
+    <form (ngSubmit)="findVehicle()">
+        <br> Click Here to get All Vehicle Details: <br><br>
+        <input type="submit" value="Click Here" class="btn btn-primary" />
+    </form>
+
+    <table class="table table-bordered">
+        <tr *ngIf="vehicles.length > 0">
+            <th>Vehicle ID</th>
+            <th>Driver ID</th>
+            <th>Driver First Name</th>
+            <th>Driver Last Name</th>
+            <th>Vehicle Number</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Capacity</th>
+            <th>Charges Per Km</th>
+            <th>Fixed Charges</th>
+        </tr>
+        <tr *ngFor="let vh of vehicles">
+            <td>{{vh.vehicleId}}</td>
+            <td>{{vh.driver.driverId}}</td>
+            <td>{{vh.driver.firstName}}</td>
+            <td>{{vh.driver.lastName}}</td>
+            <td>{{vh.vehicleNumber}}</td>
+            <td>{{vh.type}}</td>
+            <td>{{vh.category}}</td>
+            <td>{{vh.description}}</td>
+            <td>{{vh.location}}</td>
+            <td>{{vh.capacity}}</td>
+            <td>$ {{vh.chargesPerKM}}</td>
+            <td>$ {{vh.fixedCharges}}</td>
+        </tr>
+    </table>
+
+</div>
